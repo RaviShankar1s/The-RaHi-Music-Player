@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="music.css">
+    <title>RaHi Music Player</title>
+    <link rel="icon" href="Logo.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <!-- <nav>
+            <div class="circle">
+                <i class="bi bi-caret-left"></i>
+            </div>
+            <div class="circle">
+                <i class="bi bi-list"></i>
+            </div>
+        </nav> -->
+        <h2>The RaHi Music Player </h2>
+        <p>Mr. Ravi Shankar</p>
+        <img src="songimg.jpg" class="song-img">
+        <!-- song name -->
+        <h1>Challa</h1>
+        <!-- Artist name -->
+        <p>A.R. Rahman</p>
+         <audio  id="song">
+            <!-- <audio id="song"></audio> -->
+            <source src="Challa 128 Kbps.mp3">
+        </audio>
+        <input type="range" value="0" id="process">
+        <div class="controls">
+            <div><i class="bi bi-skip-backward-fill"></i></div>
+            <div onclick="playPause()"><i class="bi bi-play-fill" id="ctrlicon"></i></div>
+            <div><i class="bi bi-skip-forward-fill"></i></div>
+        </div>
+        </div>
+    </div>
+    <script>
+        let process = document.getElementById("process");
+        let song = document.getElementById("song");
+        let ctrlicon = document.getElementById("ctrlicon");
+
+        song.onloadedmetadata = function(){
+            process.max = song.duration;
+            process.value = song.currentTime;
+        }
+        function playPause(){
+            if(ctrlicon.classList.contains("bi-pause-fill")){
+                song.pause();
+                ctrlicon.classList.remove("bi-pause-fill")
+                ctrlicon.classList.add("bi-play-fill")
+            }
+            else{
+                song.play();
+                ctrlicon.classList.add("bi-pause-fill")
+                ctrlicon.classList.remove("bi-play-fill")
+            }
+        }
+        if(song.play()){
+            setInterval(()=>{
+                process.value = song.currentTime
+            },500);
+        }
+        process.onchange = function(){
+            song.play();
+            song.currentTime = process.value;
+            ctrlicon.classList.add("bi-pause-fill")
+            ctrlicon.classList.remove("bi-play-fill")
+        }
+    </script>
+</body>
+</html>
